@@ -2,7 +2,7 @@ import loginPage from '../support/pages/login'
 import shaversPage from '../support/pages/shavers'
 
 import data from '../fixtures/users-login.json'
-import { method } from 'cypress/types/bluebird'
+//import { method } from 'cypress/types/bluebird'
 
 
 describe('login', ()=>{
@@ -11,9 +11,17 @@ describe('login', ()=>{
     context('quando submeto o formulário', () =>{
 
 
-        it('deve logar com sucesso', ()=>{
+        it.only('deve logar com sucesso', ()=>{
+
+            const user = data.success
  
-            const user = data.sucess
+            cy.task('removeUser', user.email)
+                .then(function(result){
+                    cy.log(result)
+                })
+
+
+
 
             cy.request({
                 method: 'POST',
