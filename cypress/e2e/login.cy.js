@@ -1,6 +1,7 @@
 import loginPage from '../support/pages/login'
 import shaversPage from '../support/pages/shavers'
 
+import data from '../fixtures/users-login.json'
 
 
 describe('login', ()=>{
@@ -11,12 +12,8 @@ describe('login', ()=>{
         
 
         it('deve logar com sucesso', ()=>{
-            const user = {
-                name: 'Vanessa',
-                email: 'vanessa@yahoo.com',
-                password: 'pwd123'
-            }
-
+ 
+            const user = data.sucess
 
             loginPage.submit(user.email,user.password)
 
@@ -26,12 +23,7 @@ describe('login', ()=>{
 
 
         it('não deve logar com senha incorreta', ()=>{
-            const user = {
-                name: 'Vanessa',
-                email: 'vanessa@yahoo.com',
-                password: '123456'
-            }
-
+            const user = data.invpass
             
             loginPage.submit(user.email,user.password)
 
@@ -43,11 +35,7 @@ describe('login', ()=>{
 
 
         it('não deve logar com email não cadastrado', ()=>{
-            const user = {
-                name: 'Vanessa',
-                email: 'vanessa@404.com',
-                password: '123456'
-            }
+            const user = data.email404
 
             loginPage.submit(user.email,user.password)
 
@@ -61,8 +49,6 @@ describe('login', ()=>{
         it('campos obrigatorios', ()=>{
             loginPage.submit()
 
-
-
             loginPage.requiredFields('E-mail é obrigatório', 'Senha é obrigatória')
 
         })
@@ -75,13 +61,7 @@ describe('login', ()=>{
 
     context('senha muito curta', ()=>{
 
-        const passwords = [
-            '1',
-            '12',
-            '123',
-            '1234',
-            '12345'
-        ]
+        const passwords = data.shortpass
 
         passwords.forEach((p)=>{
             it(`não deve logar com a senha: ${p} `, ()=>{
@@ -96,16 +76,7 @@ describe('login', ()=>{
 
     context('email no formato incorreto', ()=>{
 
-        const emails = [
-            'vanessa&gmail.com',
-            'vanessa.com.br',
-            '@gmail.com',
-            '@',
-            'vanessa@',
-            '12312',
-            '@#!$%%%',
-            'xpto123'
-        ]
+        const emails = data.invemails
 
 
         emails.forEach((e)=>{
