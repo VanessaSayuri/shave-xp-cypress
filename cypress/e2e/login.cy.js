@@ -2,6 +2,7 @@ import loginPage from '../support/pages/login'
 import shaversPage from '../support/pages/shavers'
 
 import data from '../fixtures/users-login.json'
+import { method } from 'cypress/types/bluebird'
 
 
 describe('login', ()=>{
@@ -9,14 +10,20 @@ describe('login', ()=>{
 
     context('quando submeto o formulário', () =>{
 
-        
 
         it('deve logar com sucesso', ()=>{
  
             const user = data.sucess
 
-            loginPage.submit(user.email,user.password)
+            cy.request({
+                method: 'POST',
+                url: 'http://localhost:3333/users',
+                body: user
+            }).then(function(response){
+                expect(response.status).to.eq(201)
+            })
 
+            loginPage.submit(user.email,user.password)
             shaversPage.header.userShouldBeLoggedIn(user.name)
 
         })
@@ -55,7 +62,6 @@ describe('login', ()=>{
 
         
     })
-
 
 
 
