@@ -27,8 +27,8 @@
 
 
 
-import loginPage from '../support/pages/login'
-import shaversPage from '../support/pages/shavers'
+import loginPage from './pages/views/login'
+import shaversPage from './pages/views/shavers'
 
 
 Cypress.Commands.add('createUser', (user) => {

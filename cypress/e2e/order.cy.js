@@ -1,9 +1,9 @@
-import loginPage from '../support/pages/login'
-import shaversPage from '../support/pages/shavers'
-import catalogPage from '../support/pages/catalog'
+// import loginPage from '../support/pages/views/login'
+import shaversPage from '../support/pages/views/shavers'
+import catalogPage from '../support/pages/views/catalog'
 
 import data from '../fixtures/order.json'
-import orderPage from '../support/pages/order'
+import orderPage from '../support/pages/views/order'
 
 describe('pedido', ()=>{
 
