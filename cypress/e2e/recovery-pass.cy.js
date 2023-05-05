@@ -1,7 +1,4 @@
-import fpPage from '../support/pages/views/forgot-pass'
-import rpPage from '../support/pages/views/reset-pass'
-import loginPage from '../support/pages/views/login'
-import shaversPage from '../support/pages/views/shavers'
+
 
 describe('esqueci minha senha', ()=>{
 
@@ -18,11 +15,10 @@ describe('esqueci minha senha', ()=>{
 
         cy.createUser(user)
 
-        fpPage.go()
-        fpPage.submit(user.email)
+        cy.requestPassword(user.email)
 
         const message = 'Enviamos um e-mail para confirmar a recuperação de senha, verifique sua caixa de entrada.'
-        fpPage.noticeShouldBe(message)
+        cy.noticeSuccessShouldBe(message)
 
     })
 
@@ -45,18 +41,17 @@ describe('esqueci minha senha', ()=>{
 
         it('deve poder cadastrar uma nova senha', ()=>{
     
-            rpPage.go(Cypress.env('passToken'))
-
-            rpPage.submit('abc123', 'abc123')
+            cy.resetPassword(Cypress.env('passToken'), 'abc123','abc123')
 
             const message = 'Agora você já pode logar com a sua nova senha secreta.'
-            rpPage.noticeShouldBe(message)
+            cy.noticeSuccessShouldBe(message)
 
         })
 
         afterEach(()=>{
-            loginPage.submit(user.email, 'abc123')
-            shaversPage.header.userShouldBeLoggedIn(user.name)
+            cy.submitLogin(user.email,'abc123')
+            cy.userShouldBeLoggedIn(user.name)
+
         })
     } )
 
